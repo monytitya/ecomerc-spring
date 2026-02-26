@@ -44,4 +44,12 @@ public class Admin {
     @Lob
     @Column(name = "admin_about")
     private String adminAbout;
+
+    public void setAdminId1(Integer id) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public void setAdminId(Integer id) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

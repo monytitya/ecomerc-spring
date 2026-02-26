@@ -41,4 +41,8 @@ public class CustomerOrder {
     @Lob
     @Column(name = "order_status")
     private String orderStatus;
+
+    public void setOrderId(Integer id) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

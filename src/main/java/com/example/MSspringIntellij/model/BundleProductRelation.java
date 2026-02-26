@@ -26,4 +26,12 @@ public class BundleProductRelation {
 
     @Column(name = "bundle_id")
     private Integer bundleId;
+
+    public void setRelId1(Integer id) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public void setRelId(Integer id) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

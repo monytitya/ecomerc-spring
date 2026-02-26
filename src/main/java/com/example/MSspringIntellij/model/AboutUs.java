@@ -30,4 +30,8 @@ public class AboutUs {
     @Lob
     @Column(name = "about_desc")
     private String aboutDesc;
+
+    public void setAboutId(Integer id) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

@@ -26,4 +26,8 @@ public class ProductCategory {
 
     @Column(name = "p_cat_image")
     private String pCatImage;
+
+    public void setPCatId(Integer id) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }
