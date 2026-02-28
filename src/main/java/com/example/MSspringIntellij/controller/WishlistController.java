@@ -1,17 +1,10 @@
 package com.example.MSspringIntellij.controller;
 
 import java.util.List;
+import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.example.MSspringIntellij.model.Wishlist;
 import com.example.MSspringIntellij.service.WishlistService;
@@ -22,13 +15,14 @@ public class WishlistController {
 
     private final WishlistService service;
 
-    @Autowired
     public WishlistController(WishlistService service) {
         this.service = service;
     }
 
     @GetMapping
-    public List<Wishlist> getAll() { return service.findAll(); }
+    public ResponseEntity<List<Wishlist>> getAll() {
+        return ResponseEntity.ok(service.findAll());
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity<Wishlist> getById(@PathVariable Integer id) {
@@ -38,21 +32,27 @@ public class WishlistController {
     }
 
     @PostMapping
-    public ResponseEntity<Wishlist> create(@RequestBody Wishlist obj) { return ResponseEntity.ok(service.save(obj)); }
+    public ResponseEntity<Wishlist> create(@RequestBody Wishlist wishlist) {
+        Wishlist saved = service.save(wishlist);
+        return ResponseEntity.status(201).body(saved);
+    }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Wishlist> update(@PathVariable Integer id, @RequestBody Wishlist obj) {
+    public ResponseEntity<Wishlist> update(@PathVariable Integer id,
+            @RequestBody Wishlist wishlist) {
         return service.findById(id)
                 .map(existing -> {
-                    obj.setWishlistId(id);
-                    return ResponseEntity.ok(service.save(obj));
+                    wishlist.setWishlistId(id);
+                    Wishlist updated = service.save(wishlist);
+                    return ResponseEntity.ok(updated);
                 })
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Integer id) {
-        if (service.findById(id).isPresent()) {
+        Optional<Wishlist> wishlist = service.findById(id);
+        if (wishlist.isPresent()) {
             service.deleteById(id);
             return ResponseEntity.noContent().build();
         }

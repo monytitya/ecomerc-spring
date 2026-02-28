@@ -23,4 +23,8 @@ public class Wishlist {
 
     @Column(name = "product_id")
     private Integer productId;
+
+    public void setWishlistId(Integer id) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }
